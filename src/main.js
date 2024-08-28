@@ -5,6 +5,8 @@ import router from './router'
 // import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import { getCategory } from '@/apis/testApi.js'
+//引入初始化样式文件
+import '@/styles/common.scss'
 
 getCategory().then(res=>{
     console.log(res)
