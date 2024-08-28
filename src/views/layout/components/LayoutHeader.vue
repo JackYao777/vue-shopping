@@ -39,7 +39,8 @@ onMounted(() => {
 <style scoped lang='scss'>
 .app-header {
     background: #fff;
-
+    // position: sticky;
+    // top: 0;
     .container {
         display: flex;
         align-items: center;
