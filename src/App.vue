@@ -5,9 +5,16 @@ import HelloWorld from './components/HelloWorld.vue'
 <template>
   <!-- <el-button type="primary" disabled>Primary</el-button> -->
   <router-view></router-view>
+  <div class="test">
+  自动导入
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.test{
+  color: $priceColor;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
