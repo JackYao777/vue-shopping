@@ -12,6 +12,21 @@ const getCategoryFilter = async () => {
 }
 onMounted(() => getCategoryFilter())
 
+
+const goodList = ref([])
+const reqData = ref({
+  categoryId: route.params.id,
+  page: 1,
+  pageSize: 20,
+  sortField: 'publishTime'
+})
+const getSubCategory = async () => {
+  const res = await getSubCategoryAPI(reqData.value)
+  goodList.value = res.data.result.items
+}
+
+onMounted(() => getSubCategory())
+
 </script>
 
 <template>
@@ -24,6 +39,18 @@ onMounted(() => getCategoryFilter())
         </el-breadcrumb-item>
         <el-breadcrumb-item>{{ categoryFilter.name }}</el-breadcrumb-item>
       </el-breadcrumb>
+    </div>
+
+    <div class="sub-container">
+      <el-tabs v-model="reqData.sortField" @tab-change="tabChange">
+        <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
+        <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
+        <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
+      </el-tabs>
+      <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
+        <!-- 商品列表-->
+        <GoodsItem v-for="good in goodList" :good="good" :key="good.id"></GoodsItem>
+      </div>
     </div>
   </div>
 </template>
