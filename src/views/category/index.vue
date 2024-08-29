@@ -1,35 +1,13 @@
 <script setup>
-import { getCategoryAPI } from '@/apis/category';
-import { onMounted, onUpdated, ref } from 'vue'
-import { useRoute } from 'vue-router';
-import { getBannerAPI } from '@/apis/home'
-import GoodsItem from '@/views/home/components/GoodsItem.vue';
-import { onBeforeRouteUpdate } from 'vue-router'
-//面包屑
-const categoryData = ref({})
-const route=useRoute()
-//route.params.id 为id的默认参数，当下面的onMounted调用时使用
-const getCategory = async (id = route.params.id) => {
-    const res = await getCategoryAPI(id)
-    categoryData.value = res.data.result
-}
+import GoodsItem from '@/views/home/components/GoodsItem.vue'
+import { useBanner } from './composables/useBanner'
+import { useCategory } from './composables/useCategory'
 
+//轮播图
+const { bannerList } = useBanner()
 
-//解决路由缓存
-//这里的to指的是目标路由
-onBeforeRouteUpdate((to) => {
-    getCategory(to.params.id)
-})
-
-
-//轮播图片
-const bannerList = ref([])
-const getBanner = async () => {
-    const res = await getBannerAPI({ distributionSite: '2' })
-    bannerList.value = res.data.result
-}
-onMounted(() => getBanner())
-onMounted(() => getCategory())
+//分类
+const { categoryData } = useCategory()
 
 </script>
 
