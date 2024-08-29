@@ -25,7 +25,14 @@ const getSubCategory = async () => {
   goodList.value = res.data.result.items
 }
 
+
 onMounted(() => getSubCategory())
+
+const tabChange = () => {
+  //切换后重置为第一页
+  reqData.value.id = 1
+  getSubCategory()
+}
 
 </script>
 
