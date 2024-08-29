@@ -34,6 +34,19 @@ const tabChange = () => {
   getSubCategory()
 }
 
+//触底无限加载
+const disabled = ref(false)
+const load = async () => {
+  reqData.value.page++
+  const res = await getSubCategoryAPI(reqData.value)
+  //这里使用展开运算符对数组进行拼接，也可以使用concat方法
+  goodList.value = [...goodList.value, ...res.data.result.items]
+  // 加载完毕 停止监听
+  if (res.data.result.items.length === 0) {
+    disabled.value = true
+  }
+}
+
 </script>
 
 <template>
