@@ -1,20 +1,24 @@
 import axios from "axios";
+import 'element-plus/theme-chalk/el-message.css'
+import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores/userStore'
+import router from '@/router'
 
-const httpInstance =axios.create({
+const httpInstance = axios.create({
     baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
     timeout: 5000
-});
+})
 
 // 添加请求拦截器
-httpInstance.interceptors.request.use(config=> {
+httpInstance.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     //在请求头中携带token
-    // const userStore = useUserStore()
-    // const token = userStore.userInfo.token
-    // if (token) {
-    //     //注意:这里有个空格
-    //     config.headers.Authorization = `Bearer ${token}`
-    // }
+    const userStore = useUserStore()
+    const token = userStore.userInfo.token
+    if (token) {
+        //注意:这里有个空格
+        config.headers.Authorization = `Bearer ${token}`
+    }
     return config;
 }, function (error) {
     // 对请求错误做些什么
