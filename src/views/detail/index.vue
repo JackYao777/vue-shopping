@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router'
 import DetailHot from './components/DetailHot.vue'
 import 'element-plus/theme-chalk/el-message.css'
 import { ElMessage } from 'element-plus'
-// import { useCartStore } from '@/stores/cartStore'
+import { useCartStore } from '@/stores/cartStore'
 
 const goods = ref({})
 const route = useRoute()
@@ -29,25 +29,25 @@ const countChange = (count) => {
 }
 
 //加入购物车
-// const cartStore = useCartStore()
-// const addCart = () => {
-//   //选择了规格
-//   if (skuObj.skuId) {
-//     cartStore.addCart({
-//       id: goods.value.id,
-//       name: goods.value.name,
-//       picture: goods.value.mainPictures[0],
-//       price: goods.value.price,
-//       count: count.value,
-//       skuId: skuObj.skuId,
-//       attrsText: skuObj.specsText, //商品规格文本
-//       selected: true //商品是否选中
-//     })
-//   } else {
-//     //没选择规格
-//     ElMessage.warning('请选择规格')
-//   }
-// }
+const cartStore = useCartStore()
+const addCart = () => {
+  //选择了规格
+  if (skuObj.skuId) {
+    cartStore.addCart({
+      id: goods.value.id,
+      name: goods.value.name,
+      picture: goods.value.mainPictures[0],
+      price: goods.value.price,
+      count: count.value,
+      skuId: skuObj.skuId,
+      attrsText: skuObj.specsText, //商品规格文本
+      selected: true //商品是否选中
+    })
+  } else {
+    //没选择规格
+    ElMessage.warning('请选择规格')
+  }
+}
 </script>
 
 <template>
